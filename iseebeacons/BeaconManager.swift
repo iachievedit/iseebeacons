@@ -35,7 +35,6 @@ import os
 
 class BeaconManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   var locationManager: CLLocationManager?
-  //var peripheralManager: CBPeripheralManager?
 
   @Published var beaconAvailable = false
 
@@ -44,33 +43,34 @@ class BeaconManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     locationManager = CLLocationManager()
     locationManager?.delegate = self
     locationManager?.requestAlwaysAuthorization()
-    //peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
   }
   
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     if status == .authorizedAlways || status == .authorizedWhenInUse {
       if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-        os_log("monitoring available")
+        os_log("Beacon region monitoring available")
         startMonitoring()
       } else {
-        os_log("not authorized")
+        os_log("Beacon region monitoring not available")
       }
     } else {
-      os_log("not authorized")
+      os_log("Location not authorized")
     }
   }
       
   func startMonitoring() {
     os_log("startMonitoring")
+    
     let proximityUUID = UUID(uuidString:"bf707dd7-a3c3-4a4b-b98b-88c175b7d730")
-    let beaconID = "com.example.myBeaconRegion"
+    let beaconID = "com.example.myBeaconRegion" // Unclear whether this needs to be set to anything meaningful
     let region = CLBeaconRegion(proximityUUID: proximityUUID!, identifier: beaconID)
     locationManager!.startMonitoring(for: region)
   }
 
   func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    
       if region is CLBeaconRegion {
-        os_log("did enter")
+        os_log("didEnterRegion")
         beaconAvailable=true
         
         let content = UNMutableNotificationContent()
@@ -86,7 +86,7 @@ class BeaconManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
     if region is CLBeaconRegion {
-      os_log("did exit")
+      os_log("didExitRegion")
       beaconAvailable = false
     }
   }

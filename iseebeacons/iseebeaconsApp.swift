@@ -26,9 +26,71 @@
 */
 
 import SwiftUI
+import UserNotifications
+import os
+
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+  
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+      
+      os_log("didFinishLaunchingWithOptions")
+      
+        // Request permission
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+          if let error = error {
+            // Handle the error here.
+            print("Error: \(error.localizedDescription)")
+          }
+
+            // Permission granted
+            if granted {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
+        }
+
+        // Set the delegate for handling notifications
+        UNUserNotificationCenter.current().delegate = self
+      
+      NotificationCenter.default.addObserver(forName:UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { (_) in
+        os_log("Backgrounded")
+      }
+      NotificationCenter.default.addObserver(forName:UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { (_) in
+        os_log("Foregrounded")
+      }
+
+        return true
+    }
+
+    // Handle registration success
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Convert token to string
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        os_log("Device Token: \(token)")
+    }
+
+    // Handle registration failure
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        os_log("Failed to register for remote notifications: \(error.localizedDescription)")
+    }
+
+    // Handle incoming notifications
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        os_log("Received notification")
+        completionHandler([.banner, .sound])
+    }
+  
+}
 
 @main
 struct iseebeaconsApp: App {
+  
+  // App delegate above is not called without this declaration
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()

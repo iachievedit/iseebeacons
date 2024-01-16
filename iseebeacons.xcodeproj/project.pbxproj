@@ -279,9 +279,9 @@
 				DEVELOPMENT_TEAM = 5367BG94QP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Always get notified when a beacon is nearby, when you are using the app or not.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get notified when a beacon is nearby, when you are using the app or not.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Always get notified when a beacon is nearby.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Always get notified when a beacon is nearby when you are using the app.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get notified when a beacon is nearby when you are using the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -311,9 +311,9 @@
 				DEVELOPMENT_TEAM = 5367BG94QP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Always get notified when a beacon is nearby, when you are using the app or not.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get notified when a beacon is nearby, when you are using the app or not.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Always get notified when a beacon is nearby.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Always get notified when a beacon is nearby when you are using the app.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get notified when a beacon is nearby when you are using the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
